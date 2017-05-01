@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <title>QDV</title>
+
+  </head>
+  <body>
+    <div class='container'>
+
+      <h1>{{data['header']}}</h1>
+
+      <ul class="nav nav-tabs">
+        <li role="presentation">
+          <a href="/">Home</a></li>
+        <li role="presentation">
+          <a href="/cardapio">Cardapio</a></li>
+        <li role="presentation">
+          <a href="/contas">Contas</a></li>
+        <li role="presentation">
+          <a href="/produtosvendidos">Produtos Vendidos</a></li>
+        <li role="presentation">
+          <a href="/cadastroproduto">Cadastro Produtos</a></li>
+      </ul>
+
+      <div class="container">
+        {% if 'Cardapio' in data['header'] %}
+          <p>
+            <form action="/novo_pedido", method="post">
+              <h3>Criar novo pedido</h3>
+              <div class="container">
+                <h4>Cartao </h4>
+                <input type="text" name="id_cartao" value="">
+                <h4>Id produto </h4>
+                <input type="text" name="id_produto" value="">
+                <h4>Quantidade </h4>
+                <input type="text" name="qtd" value="1">
+                <input type="submit" value="OK">
+              </div>
+            </form>
+          </p>
+        {%- endif %}
+
+        {% if data['info'] == 'formcadastroproduto'%}
+        <p>
+          <form action="/cadastroproduto", method="post">
+            <h3>Criar novo produto</h3>
+            <div class="container">
+              <h4>Nome </h4>
+              <input type="text" name="nome" value="">
+              <h4>Categoria </h4>
+              <input type="text" name="categoria" value="">
+              <h4>Preco </h4>
+              <input type="text" name="preco" value="">
+              <input type="submit" value="OK">
+            </div>
+          </form>
+        </p>
+
+        {% elif data['info'] == 'nonsafe'%}
+            <p> {{data['data'] }} </p>
+
+        {% elif data['info'] != 'home'%}
+                <p> {{data['data'] | safe}} </p>
+
+        {% elif data['info'] == 'home' %}
+            <p>
+              <form action="/nova_conta", method="post">
+                <h4>Nova conta</h4>
+                <input type="text" name="id_cartao" value="">
+                <input type="submit" value="OK">
+              </form>
+            </p>
+            <hr>
+            <p>
+              <form action="/fechar_conta", method="post">
+                <h4>Fechar conta</h4>
+                <input type="text" name="id_cartao" value="">
+                <input type="submit" value="OK">
+              </form>
+            </p>
+            <hr>
+            <p>
+              <form action="/novo_pedido", method="post">
+                <h3>Criar novo pedido</h3>
+                <div class="container">
+                  <h4>Cartao </h4>
+                  <input type="text" name="id_cartao" value="">
+                  <h4>ID produto </h4>
+                  <input type="text" name="id_produto" value="">
+                  <h4>Quantidade </h4>
+                  <input type="text" name="qtd" value="1">
+                  <input type="submit" value="OK">
+                </div>
+              </form>
+            </p>
+
+
+        {%- endif %}
+      </div>
+
+    </div>
+
+
+
+      </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  </body>
+</html>
